@@ -1,6 +1,6 @@
 import classes from "./Description.module.scss";
 
-export const DescriptionPage = () => {
+const DescriptionPage = () => {
   return (
     <div className={classes.page}>
       <h1 className={classes.title}>
@@ -88,3 +88,5 @@ export const DescriptionPage = () => {
     </div>
   );
 };
+
+export default DescriptionPage;
