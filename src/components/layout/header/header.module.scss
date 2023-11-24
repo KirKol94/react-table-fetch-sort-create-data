@@ -1,0 +1,26 @@
+.header {
+   background-color: var(--bg-dark);
+   color: var(--light-color);
+   padding: 15px 0;
+   text-transform: uppercase;
+   font-size: 18px;
+
+   &__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+}
+
+.list {
+   display: flex;
+   align-items: center;
+   gap: 16px;
+}
+
+.link {
+   padding: 15px 0;
+}
+.active {
+   color: var(--primary-color);
+}

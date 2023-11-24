@@ -1,0 +1,30 @@
+.page {
+   background-color: var(--bg-dark);
+   color: var(--light-color);
+   min-height: 100vh;
+}
+
+.intro {
+   padding: 100px 0;
+   border-bottom: 1px solid var(--light-color);
+}
+
+.title,
+.subtitle {
+   line-height: 1.2;
+   text-align: center;
+}
+
+.title {
+   font-size: 64px;
+}
+
+.subtitle {
+   font-size: 48px;
+}
+
+.text {
+   font-size: 18px;
+   line-height: 1.4;
+   padding: 16px 0;
+}
