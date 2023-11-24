@@ -1,0 +1,11 @@
+.button {
+   color: var(--light-color);
+   border-radius: 4px;
+   background-color: var(--primary-color);
+   padding: 8px 16px;
+   transition: var(--transition-delay);
+
+   &:hover {
+      background-color: var(--primary-hover-color);
+   }
+}
