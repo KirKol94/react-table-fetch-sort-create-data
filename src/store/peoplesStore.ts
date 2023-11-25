@@ -9,6 +9,7 @@ class PeoplesStore {
 
   isLoading: boolean = false;
   people: IPeople[] = [];
+  totalCount: number = 0;
   error: string | null = null;
   nextUrl: UrlType = "";
 
@@ -17,6 +18,7 @@ class PeoplesStore {
     try {
       const data = await api.getData();
       this.setPeople(data.results);
+      this.setTotalCount(data.count);
       this.nextUrl = data.next;
     } catch (error: any) {
       this.error = error.message || "Что-то пошло не так при загрузке данных";
@@ -26,13 +28,14 @@ class PeoplesStore {
   };
 
   loadMore = async () => {
-    if (this.nextUrl !== "") {
+    if (this.nextUrl !== "" && this.people.length !== this.totalCount) {
       this.setLoadingStart();
 
       const moreData = await api.getData(this.nextUrl);
 
       try {
         this.setPeople([...this.people, ...moreData.results]);
+
         this.nextUrl = moreData.next;
       } catch (error: any | unknown) {
         console.log(error.message);
@@ -45,6 +48,7 @@ class PeoplesStore {
   clearPeople = () => {
     this.people = [];
     this.nextUrl = "";
+    this.totalCount = 0;
   };
 
   private setLoadingStart = () => {
@@ -58,6 +62,10 @@ class PeoplesStore {
 
   private setPeople = (array: IPeople[]) => {
     this.people = array;
+  };
+
+  private setTotalCount = (count: number) => {
+    this.totalCount = count;
   };
 }
 
