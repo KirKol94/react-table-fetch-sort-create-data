@@ -12,6 +12,7 @@ const HomePage = observer(() => {
   const {
     getData,
     loadMore,
+    removeItem,
     clearPeople,
     isLoading,
     people,
@@ -25,6 +26,11 @@ const HomePage = observer(() => {
 
   const onModalOpen = () => {
     setIsOpenModal(true);
+  };
+
+  const onConfirmDeletion = (key: string) => {
+    onModalOpen();
+    removeItem(key);
   };
 
   const buttonHandlerGetData = () => {
@@ -63,7 +69,7 @@ const HomePage = observer(() => {
           array={people}
           loadMore={loadMore}
           totalCount={totalCount}
-          onConfirmDeletion={onModalOpen}
+          onConfirmDeletion={onConfirmDeletion}
         />
       )}
 

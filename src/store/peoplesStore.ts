@@ -45,6 +45,10 @@ class PeoplesStore {
     }
   };
 
+  removeItem = (key: string) => {
+    this.people = this.people.filter((item) => item.created !== key);
+  };
+
   clearPeople = () => {
     this.people = [];
     this.nextUrl = "";

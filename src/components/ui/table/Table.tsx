@@ -4,7 +4,7 @@ import classes from "./Table.module.scss";
 interface TableProps {
   array: IPeople[];
   totalCount: number;
-  onConfirmDeletion: () => void;
+  onConfirmDeletion: (key: string) => void;
   loadMore: () => void;
 }
 
@@ -31,7 +31,7 @@ export const Table = ({
           <tr
             key={item.created}
             className={classes.tr}
-            onClick={onConfirmDeletion}
+            onClick={() => onConfirmDeletion(item.created)}
           >
             <td className={classes.td}>{item.created}</td>
             <td className={classes.td}>{item.birth_year}</td>
