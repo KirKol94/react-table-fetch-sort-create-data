@@ -28,6 +28,7 @@ const HomePage = observer(() => {
     setIsOpenModal(true);
   };
 
+  // TODO поправить удаление записи (сначала удаляется потом выбор предоставляется)
   const onConfirmDeletion = (key: string) => {
     onModalOpen();
     removeItem(key);

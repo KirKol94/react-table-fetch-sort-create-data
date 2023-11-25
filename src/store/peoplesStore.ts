@@ -1,17 +1,32 @@
 import { api } from "@/api/api";
 import { IPeople, UrlType } from "@/types/people-list";
-import { makeAutoObservable, runInAction } from "mobx";
+import { saveDataToLS } from "@/utils/saveDataToLS";
+import { makeAutoObservable } from "mobx";
 
 class PeoplesStore {
   constructor() {
     makeAutoObservable(this);
+
+    const storedPeople = localStorage.getItem("people");
+    const storedTotalCount = localStorage.getItem("totalCount");
+    const storednextPage = localStorage.getItem("nextPage");
+
+    if (storedPeople && storedTotalCount && storednextPage) {
+      try {
+        this.people = JSON.parse(storedPeople);
+        this.totalCount = JSON.parse(storedTotalCount);
+        this.nextPage = JSON.parse(storednextPage);
+      } catch (error) {
+        console.error("Error parsing people data from localStorage:", error);
+      }
+    }
   }
 
   isLoading: boolean = false;
   people: IPeople[] = [];
   totalCount: number = 0;
   error: string | null = null;
-  nextUrl: UrlType = "";
+  nextPage: number | null = 1;
 
   getData = async () => {
     this.setLoadingStart();
@@ -19,7 +34,7 @@ class PeoplesStore {
       const data = await api.getData();
       this.setPeople(data.results);
       this.setTotalCount(data.count);
-      this.nextUrl = data.next;
+      this.setNextPage(data.next);
     } catch (error: any) {
       this.error = error.message || "Что-то пошло не так при загрузке данных";
     } finally {
@@ -28,15 +43,14 @@ class PeoplesStore {
   };
 
   loadMore = async () => {
-    if (this.nextUrl !== "" && this.people.length !== this.totalCount) {
+    if (this.nextPage !== null && this.people.length !== this.totalCount) {
       this.setLoadingStart();
-
-      const moreData = await api.getData(this.nextUrl);
-
+      const moreData = await api.getData(this.nextPage);
       try {
         this.setPeople([...this.people, ...moreData.results]);
+        this.setNextPage(moreData.next);
 
-        this.nextUrl = moreData.next;
+        saveDataToLS(this.nextPage, "nextPage");
       } catch (error: any | unknown) {
         console.log(error.message);
       } finally {
@@ -47,12 +61,16 @@ class PeoplesStore {
 
   removeItem = (key: string) => {
     this.people = this.people.filter((item) => item.created !== key);
+
+    saveDataToLS(this.people, "people");
   };
 
   clearPeople = () => {
     this.people = [];
-    this.nextUrl = "";
+    this.nextPage = null;
     this.totalCount = 0;
+
+    localStorage.clear();
   };
 
   private setLoadingStart = () => {
@@ -66,10 +84,17 @@ class PeoplesStore {
 
   private setPeople = (array: IPeople[]) => {
     this.people = array;
+    saveDataToLS(this.people, "people");
   };
 
   private setTotalCount = (count: number) => {
     this.totalCount = count;
+    saveDataToLS(this.totalCount, "totalCount");
+  };
+
+  private setNextPage = (url: UrlType) => {
+    (this.nextPage = url !== null ? +url.split("=")[1] : null),
+      saveDataToLS(this.nextPage, "nextPage");
   };
 }
 
