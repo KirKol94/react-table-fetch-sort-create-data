@@ -9,3 +9,11 @@
       background-color: var(--primary-hover-color);
    }
 }
+
+.danger {
+   background-color: var(--danger-color);
+
+   &:hover {
+      background-color: var(--danger-hover-color);
+   }
+}

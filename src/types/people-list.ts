@@ -1,4 +1,4 @@
-type UrlType = string;
+export type UrlType = string;
 
 export interface IPeople {
   name: string;

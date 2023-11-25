@@ -1,9 +1,11 @@
 :root {
-   --bg-dark: #23272f;
-   --main-color: var(--bg-dark);
+   --dark-color: #23272f;
+   --main-color: var(--dark-color);
    --light-color: #fff;
    --primary-color: #059;
    --primary-hover-color: rgb(5, 107, 190);
+   --danger-color: #ee204d;
+   --danger-hover-color: #9b2d30;
    --font-family: "Roboto";
    --transition-delay: 300ms;
 }

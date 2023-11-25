@@ -1,15 +1,16 @@
-import { IPeople, IResponse } from "@/types/people-list";
+import { IResponse, UrlType } from "@/types/people-list";
 import ky from "ky";
 
 class Api {
-  async getData(): Promise<IResponse> {
-    return await ky("https://swapi.dev/api/people/").json();
+  constructor(url: UrlType) {
+    this.url = url;
   }
 
-  async getPeopse(): Promise<IPeople[]> {
-    const data: IResponse = await ky("https://swapi.dev/api/people/").json();
-    return data.results;
+  url = "";
+
+  async getData(url = this.url): Promise<IResponse> {
+    return await ky(url).json();
   }
 }
 
-export const api = new Api();
+export const api = new Api("https://swapi.dev/api/people/");
