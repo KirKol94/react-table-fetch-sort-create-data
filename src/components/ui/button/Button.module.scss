@@ -16,4 +16,11 @@
    &:hover {
       background-color: var(--danger-hover-color);
    }
+
+   &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: var(--danger-color); /* Цвет фона для неактивной кнопки (можно оставить таким же) */
+      color: var(--light-color); /* Цвет текста для неактивной кнопки (можно оставить таким же) */
+   }
 }

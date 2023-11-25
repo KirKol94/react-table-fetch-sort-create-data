@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { EmptyData } from "@/components/ui/emptyData";
 import { Loader } from "@/components/ui/loader";
 import { Table } from "@/components/ui/table/Table";
 import peoplesStore from "@/store/peoplesStore";
@@ -38,11 +39,17 @@ const HomePage = observer(() => {
   return (
     <div className="home__container">
       <Button onClick={buttonHandlerGetData}>Запросить данные</Button>
-      <Button variant="danger" onClick={buttonHandlerClearData}>
+      <Button
+        disabled={totalCount === 0}
+        variant="danger"
+        onClick={buttonHandlerClearData}
+      >
         Очистить данные
       </Button>
 
-      {people.length !== 0 && (
+      {people.length === 0 ? (
+        <EmptyData />
+      ) : (
         <Table array={people} loadMore={loadMore} totalCount={totalCount} />
       )}
     </div>
