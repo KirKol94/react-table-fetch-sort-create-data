@@ -20,8 +20,21 @@
 }
 
 .tbody .tr:hover {
+   position: relative;
    background-color: #e6f7ff;
    cursor: pointer;
+}
+
+.tbody .tr:hover::after {
+   content: attr(data-title);
+   position: absolute;
+   left: 0;
+   top: 50%;
+   transform: translate(-102%, -50%);
+   background-color: var(--dark-color);
+   color: var(--light-color);
+   padding: 4px;
+   border-radius: 4px;
 }
 
 .load-more {

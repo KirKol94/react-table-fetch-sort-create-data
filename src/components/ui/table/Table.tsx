@@ -29,6 +29,7 @@ export const Table = ({
       <tbody className={classes.tbody}>
         {array.map((item) => (
           <tr
+            data-title="Нажать для удаления"
             key={item.created}
             className={classes.tr}
             onClick={() => onConfirmDeletion(item.created)}
@@ -40,6 +41,9 @@ export const Table = ({
             <td className={classes.td}>{item.name}</td>
           </tr>
         ))}
+      </tbody>
+
+      <tfoot>
         <tr className={classes.tr}>
           <td colSpan={5} className={classes["load-more"]}>
             <button onClick={loadMore} disabled={totalCount === array.length}>
@@ -47,7 +51,7 @@ export const Table = ({
             </button>
           </td>
         </tr>
-      </tbody>
+      </tfoot>
     </table>
   );
 };
