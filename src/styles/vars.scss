@@ -1,6 +1,6 @@
 :root {
    --bg-dark: #23272f;
-   --main-color: #23272f;
+   --main-color: var(--bg-dark);
    --light-color: #fff;
    --primary-color: #059;
    --primary-hover-color: rgb(5, 107, 190);
