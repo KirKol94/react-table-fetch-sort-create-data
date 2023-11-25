@@ -4,10 +4,16 @@ import classes from "./Table.module.scss";
 interface TableProps {
   array: IPeople[];
   totalCount: number;
+  onConfirmDeletion: () => void;
   loadMore: () => void;
 }
 
-export const Table = ({ array, totalCount, loadMore }: TableProps) => {
+export const Table = ({
+  array,
+  totalCount,
+  loadMore,
+  onConfirmDeletion,
+}: TableProps) => {
   return (
     <table className={classes.table}>
       <thead className={classes.thead}>
@@ -22,7 +28,11 @@ export const Table = ({ array, totalCount, loadMore }: TableProps) => {
 
       <tbody className={classes.tbody}>
         {array.map((item) => (
-          <tr key={item.created} className={classes.tr}>
+          <tr
+            key={item.created}
+            className={classes.tr}
+            onClick={onConfirmDeletion}
+          >
             <td className={classes.td}>{item.created}</td>
             <td className={classes.td}>{item.birth_year}</td>
             <td className={classes.td}>{item.eye_color}</td>
