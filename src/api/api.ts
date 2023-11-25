@@ -1,4 +1,4 @@
-import { IResponse, UrlType } from "@/types/people-list";
+import { IResponse } from "@/types/people-list";
 import ky from "ky";
 
 class Api {

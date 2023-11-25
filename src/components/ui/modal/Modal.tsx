@@ -18,7 +18,9 @@ export const Modal = ({
   const modalRoot = document.getElementById("modal-root");
   const modalElement = document.createElement("div");
 
-  const onModalClickHandler = (e: MouseEvent) => {
+  const onModalClickHandler = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     e.stopPropagation();
   };
 
@@ -44,7 +46,7 @@ export const Modal = ({
 
   return isOpen
     ? ReactDOM.createPortal(
-        <div className={classes["overlay"]} onClick={onClose}>
+        <div className={classes.overlay} onClick={onClose}>
           <div className={classes.modal} onClick={onModalClickHandler}>
             <div className={classes.header}>
               <h2>{title}</h2>

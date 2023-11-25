@@ -35,8 +35,12 @@ class PeoplesStore {
       this.setPeople(data.results);
       this.setTotalCount(data.count);
       this.setNextPage(data.next);
-    } catch (error: any) {
-      this.error = error.message || "Что-то пошло не так при загрузке данных";
+    } catch (error: unknown) {
+      if (typeof error === "object" && error !== null && "message" in error) {
+        this.error = (error as Error).message;
+      } else {
+        this.error = "Что-то пошло не так при загрузке данных";
+      }
     } finally {
       this.setLoadingFinished();
     }
@@ -51,8 +55,8 @@ class PeoplesStore {
         this.setNextPage(moreData.next);
 
         saveDataToLS(this.nextPage, "nextPage");
-      } catch (error: any | unknown) {
-        console.log(error.message);
+      } catch (error: unknown) {
+        console.log((error as Error).message);
       } finally {
         this.setLoadingFinished();
       }

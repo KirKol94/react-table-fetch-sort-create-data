@@ -59,9 +59,7 @@ const DescriptionPage = () => {
           терять текущие данные страницы.
         </p>
 
-        <h2 className={classes.subtitle}>
-          ​Дополнительные пункты (уровень 3):
-        </h2>
+        <h2 className={classes.subtitle}>Дополнительные пункты (уровень 3):</h2>
 
         <p className={classes.text}>
           • Строки таблицы можно перемещать между собой (механизм drag &amp;

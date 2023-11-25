@@ -7,6 +7,9 @@ export const saveDataToLS = <T>(data: T, keyName: string) => {
     );
     console.info(`${keyName} data saved to localStorage.`);
   } catch (error) {
-    console.error("Error saving data to localStorage:", error.message);
+    console.error(
+      "Error saving data to localStorage:",
+      (error as Error).message
+    );
   }
 };
