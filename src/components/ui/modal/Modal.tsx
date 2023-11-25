@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useCallback, useEffect } from "react";
 import ReactDOM from "react-dom";
 import classes from "./Modal.module.scss";
 
@@ -22,11 +22,25 @@ export const Modal = ({
     e.stopPropagation();
   };
 
+  const handleCloseOnEsc = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
   useEffect(() => {
     if (isOpen) {
       modalRoot?.appendChild(modalElement);
+      window.addEventListener("keydown", handleCloseOnEsc);
     }
-  }, [isOpen, modalElement, modalRoot]);
+
+    return () => {
+      window.removeEventListener("keydown", handleCloseOnEsc);
+    };
+  }, [isOpen, modalElement, modalRoot, handleCloseOnEsc]);
 
   return isOpen
     ? ReactDOM.createPortal(
