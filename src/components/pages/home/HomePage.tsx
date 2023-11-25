@@ -20,18 +20,28 @@ const HomePage = observer(() => {
     error,
   } = peoplesStore;
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [removingItemKey, setRemovingItemKey] = useState("");
   const onModalClose = () => {
     setIsOpenModal(false);
+    setRemovingItemKey("");
   };
 
   const onModalOpen = () => {
     setIsOpenModal(true);
   };
 
-  // TODO поправить удаление записи (сначала удаляется потом выбор предоставляется)
-  const onConfirmDeletion = (key: string) => {
+  const onRemoveItemRequest = (key: string) => {
     onModalOpen();
-    removeItem(key);
+    setRemovingItemKey(key);
+  };
+
+  const onRemoveWithConfirm = () => {
+    if (people.length === 1) {
+      clearPeople();
+    }
+
+    removeItem(removingItemKey);
+    onModalClose();
   };
 
   const buttonHandlerGetData = () => {
@@ -70,7 +80,7 @@ const HomePage = observer(() => {
           array={people}
           loadMore={loadMore}
           totalCount={totalCount}
-          onConfirmDeletion={onConfirmDeletion}
+          onConfirmDeletion={onRemoveItemRequest}
         />
       )}
 
@@ -80,7 +90,7 @@ const HomePage = observer(() => {
         title="Вы уверены, что хотите удалить запись?"
       >
         <Button onClick={onModalClose}>Отмена</Button>
-        <Button variant="danger" onClick={onModalClose}>
+        <Button variant="danger" onClick={onRemoveWithConfirm}>
           Удалить
         </Button>
       </Modal>
