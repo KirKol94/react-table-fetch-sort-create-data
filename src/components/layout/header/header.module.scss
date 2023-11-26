@@ -1,6 +1,8 @@
+@import "@/styles/vars";
+
 .header {
-   background-color: var(--dark-color);
-   color: var(--light-color);
+   background-color: $dark-color;
+   color: $light-color;
    padding: 15px 0;
    text-transform: uppercase;
    font-size: 18px;
@@ -23,5 +25,5 @@
    padding: 15px 0;
 }
 .active {
-   color: var(--primary-color);
+   color: $primary-color;
 }

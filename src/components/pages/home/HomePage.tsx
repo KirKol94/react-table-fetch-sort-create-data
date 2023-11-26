@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyData } from "@/components/ui/emptyData";
 import { Loader } from "@/components/ui/loader";
 import { Modal } from "@/components/ui/modal";
-import { Table } from "@/components/ui/table/Table";
+import { Table } from "@/components/pages/home/table";
 import peoplesStore from "@/store/peoplesStore";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";

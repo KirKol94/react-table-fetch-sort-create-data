@@ -1,3 +1,5 @@
+@import "@/styles/vars";
+
 .loader {
    position: absolute;
    height: 100vh;
@@ -8,7 +10,7 @@
    border-radius: 50%;
    width: 48px;
    height: 48px;
-   color: var(--dark-color);
+   color: $dark-color;
 }
 .loader:before,
 .loader:after {
@@ -24,7 +26,7 @@
    animation: 1s spin linear infinite;
 }
 .loader:after {
-   color: var(--primary-color);
+   color: $primary-color;
    transform: rotateY(70deg);
    animation-delay: 0.4s;
 }

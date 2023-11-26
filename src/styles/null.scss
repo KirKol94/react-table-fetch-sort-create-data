@@ -15,12 +15,12 @@ body {
 }
 body {
    line-height: 1;
-   font-family: var(--font-family);
+   font-family: $font-family;
 }
 input,
 button,
 textarea {
-   font-family: var(--font-family);
+   font-family: $font-family;
    font-size: inherit;
 }
 button {

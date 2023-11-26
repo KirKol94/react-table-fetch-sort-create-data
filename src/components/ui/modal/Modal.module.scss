@@ -1,3 +1,5 @@
+@import "@/styles/vars";
+
 .overlay {
    position: fixed;
    top: 0;
@@ -11,7 +13,7 @@
 }
 
 .modal {
-   background-color: var(--light-color);
+   background-color: $light-color;
    padding: 20px;
    border-radius: 8px;
    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -34,7 +36,7 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
-   border-bottom: 1px solid var(--dark-color);
+   border-bottom: 1px solid $dark-color;
    padding-bottom: 10px;
    margin-bottom: 10px;
 }
@@ -45,12 +47,12 @@
 }
 
 .close {
-   color: var(--main-color);
+   color: $main-color;
    font-size: 24px;
-   transition: var(--transition-delay);
+   transition: $transition-delay;
 
    &:hover {
-      color: var(--danger-color);
+      color: $danger-color;
    }
 }
 

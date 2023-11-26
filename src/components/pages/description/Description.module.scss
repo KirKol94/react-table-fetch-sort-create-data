@@ -1,12 +1,14 @@
+@import "@/styles/vars";
+
 .page {
-   background-color: var(--dark-color);
-   color: var(--light-color);
+   background-color: $dark-color;
+   color: $light-color;
    min-height: 100vh;
 }
 
 .intro {
    padding: 100px 0;
-   border-bottom: 1px solid var(--light-color);
+   border-bottom: 1px solid $light-color;
 }
 
 .title,

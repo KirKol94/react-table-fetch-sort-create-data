@@ -1,26 +1,28 @@
+@import "@/styles/vars";
+
 .button {
-   color: var(--light-color);
+   color: $light-color;
    border-radius: 4px;
-   background-color: var(--primary-color);
+   background-color: $primary-color;
    padding: 8px 16px;
-   transition: var(--transition-delay);
+   transition: $transition-delay;
 
    &:hover {
-      background-color: var(--primary-hover-color);
+      background-color: $primary-hover-color;
    }
 }
 
 .danger {
-   background-color: var(--danger-color);
+   background-color: $danger-color;
 
    &:hover {
-      background-color: var(--danger-hover-color);
+      background-color: $danger-hover-color;
    }
 
    &:disabled {
       opacity: 0.6;
       cursor: not-allowed;
-      background-color: var(--danger-color); /* Цвет фона для неактивной кнопки (можно оставить таким же) */
-      color: var(--light-color); /* Цвет текста для неактивной кнопки (можно оставить таким же) */
+      background-color: $danger-color; /* Цвет фона для неактивной кнопки (можно оставить таким же) */
+      color: $light-color; /* Цвет текста для неактивной кнопки (можно оставить таким же) */
    }
 }
