@@ -3,11 +3,11 @@ import classes from "./Description.module.scss";
 const DescriptionPage = () => {
   return (
     <div className={classes.page}>
-      <h1 className={classes.title}>
-        Тестовое задание на должность React-разработчика.
-      </h1>
-
       <div className="descr__container">
+        <h1 className={classes.title}>
+          Тестовое задание на должность React-разработчика.
+        </h1>
+
         <p className={classes.text}>
           В тестовом задании представлены обязательные и дополнительные пункты.
           Чтобы тестовое задание считалось выполненным, необходимо реализовать

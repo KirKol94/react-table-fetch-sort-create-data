@@ -13,9 +13,6 @@ export const Header = () => {
   return (
     <header className={classes.header}>
       <div className={classes.header__container}>
-        <Link to="" className={classes.logo}>
-          Ютип Технологии
-        </Link>
         <nav>
           <ul className={classes.list}>
             {links.map(({ url, name }) => (

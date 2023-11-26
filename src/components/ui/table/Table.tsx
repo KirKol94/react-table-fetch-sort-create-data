@@ -15,43 +15,47 @@ export const Table = ({
   onConfirmDeletion,
 }: TableProps) => {
   return (
-    <table className={classes.table}>
-      <thead className={classes.thead}>
-        <tr className={classes.tr}>
-          <th className={classes.th}>Created</th>
-          <th className={classes.th}>Birth year</th>
-          <th className={classes.th}>Eye color</th>
-          <th className={classes.th}>Gender</th>
-          <th className={classes.th}>Name</th>
-        </tr>
-      </thead>
-
-      <tbody className={classes.tbody}>
-        {array.map((item) => (
-          <tr
-            data-title="Нажать для удаления"
-            key={item.created}
-            className={classes.tr}
-            onClick={() => onConfirmDeletion(item.created)}
-          >
-            <td className={classes.td}>{item.created}</td>
-            <td className={classes.td}>{item.birth_year}</td>
-            <td className={classes.td}>{item.eye_color}</td>
-            <td className={classes.td}>{item.gender}</td>
-            <td className={classes.td}>{item.name}</td>
+    <div className={classes.wrapper}>
+      <table className={classes.table}>
+        <thead className={classes.thead}>
+          <tr className={classes.tr}>
+            <th className={classes.th}>Created</th>
+            <th className={classes.th}>Birth year</th>
+            <th className={classes.th}>Eye color</th>
+            <th className={classes.th}>Gender</th>
+            <th className={classes.th}>Name</th>
           </tr>
-        ))}
-      </tbody>
+        </thead>
 
-      <tfoot>
-        <tr className={classes.tr}>
-          <td colSpan={5} className={classes["load-more"]}>
-            <button onClick={loadMore} disabled={totalCount === array.length}>
-              {totalCount === array.length ? "Это все данные" : "Загрузить ещё"}
-            </button>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+        <tbody className={classes.tbody}>
+          {array.map((item) => (
+            <tr
+              data-title="Нажать для удаления"
+              key={item.created}
+              className={classes.tr}
+              onClick={() => onConfirmDeletion(item.created)}
+            >
+              <td className={classes.td}>{item.created}</td>
+              <td className={classes.td}>{item.birth_year}</td>
+              <td className={classes.td}>{item.eye_color}</td>
+              <td className={classes.td}>{item.gender}</td>
+              <td className={classes.td}>{item.name}</td>
+            </tr>
+          ))}
+        </tbody>
+
+        <tfoot>
+          <tr className={classes.tr}>
+            <td colSpan={5} className={classes["load-more"]}>
+              <button onClick={loadMore} disabled={totalCount === array.length}>
+                {totalCount === array.length
+                  ? "Это все данные"
+                  : "Загрузить ещё"}
+              </button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   );
 };
