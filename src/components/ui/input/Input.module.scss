@@ -1,0 +1,17 @@
+@import "@/styles/vars";
+
+.input {
+   padding: 8px;
+   border: 1px solid $primary-color;
+   border-radius: 4px;
+   font-size: 16px;
+   transition: border-color 0.3s ease; // Анимация при изменении цвета рамки
+
+   &:focus {
+      border-color: dodgerblue; // Цвет рамки при фокусе
+   }
+
+   &::placeholder {
+      color: #aaa;
+   }
+}

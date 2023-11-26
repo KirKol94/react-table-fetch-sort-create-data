@@ -40,6 +40,7 @@ class PeoplesStore {
       try {
         this.setPeople([...this.people, ...moreData.results]);
         this.setNextPage(moreData.next);
+        this.setTotalCount(moreData.count);
 
         saveDataToLS(this.nextPage, "nextPage");
       } catch (error: unknown) {
@@ -50,8 +51,13 @@ class PeoplesStore {
     }
   };
 
+  addItem = (obj: IPeople) => {
+    this.people = [...this.people, obj];
+
+    saveDataToLS(this.people, "people");
+  };
+
   removeItem = (key: string) => {
-    debugger;
     this.people = this.people.filter((item) => item.created !== key);
 
     saveDataToLS(this.people, "people");
@@ -94,15 +100,21 @@ class PeoplesStore {
   };
 
   private updateDataFromLS = () => {
-    const storedPeople = localStorage.getItem("people");
-    const storedTotalCount = localStorage.getItem("totalCount");
-    const storednextPage = localStorage.getItem("nextPage");
+    const storedPeople: string | null = localStorage.getItem("people");
+    const storedTotalCount: string | null = localStorage.getItem("totalCount");
+    const storednextPage: string | null = localStorage.getItem("nextPage");
 
-    if (storedPeople && storedTotalCount && storednextPage) {
+    if (storedPeople || storedTotalCount || storednextPage) {
       try {
-        this.people = JSON.parse(storedPeople);
-        this.totalCount = JSON.parse(storedTotalCount);
-        this.nextPage = JSON.parse(storednextPage);
+        if (storedPeople !== null) {
+          this.people = JSON.parse(storedPeople);
+        }
+        if (storedTotalCount !== null) {
+          this.totalCount = JSON.parse(storedTotalCount);
+        }
+        if (storednextPage !== null) {
+          this.nextPage = JSON.parse(storednextPage);
+        }
       } catch (error) {
         console.error("Error parsing people data from localStorage:", error);
       }

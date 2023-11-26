@@ -12,6 +12,13 @@
    }
 }
 
+.secondaty {
+   background-color: $dark-color;
+   &:hover {
+      background-color: $dark-hover-color;
+   }
+}
+
 .danger {
    background-color: $danger-color;
 

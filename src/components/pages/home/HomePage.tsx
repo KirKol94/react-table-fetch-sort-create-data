@@ -71,6 +71,9 @@ const HomePage = observer(() => {
         >
           Очистить данные
         </Button>
+        <Button isLink={true} url="create" variant="secondaty">
+          Добавить запись
+        </Button>
       </div>
 
       {people.length === 0 ? (
