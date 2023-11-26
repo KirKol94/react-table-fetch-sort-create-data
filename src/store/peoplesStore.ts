@@ -6,20 +6,7 @@ import { makeAutoObservable } from "mobx";
 class PeoplesStore {
   constructor() {
     makeAutoObservable(this);
-
-    const storedPeople = localStorage.getItem("people");
-    const storedTotalCount = localStorage.getItem("totalCount");
-    const storednextPage = localStorage.getItem("nextPage");
-
-    if (storedPeople && storedTotalCount && storednextPage) {
-      try {
-        this.people = JSON.parse(storedPeople);
-        this.totalCount = JSON.parse(storedTotalCount);
-        this.nextPage = JSON.parse(storednextPage);
-      } catch (error) {
-        console.error("Error parsing people data from localStorage:", error);
-      }
-    }
+    this.updateDataFromLS();
   }
 
   isLoading: boolean = false;
@@ -64,9 +51,14 @@ class PeoplesStore {
   };
 
   removeItem = (key: string) => {
+    debugger;
     this.people = this.people.filter((item) => item.created !== key);
 
     saveDataToLS(this.people, "people");
+  };
+
+  setsortedArrayToLS = (arr: IPeople[]) => {
+    saveDataToLS(arr, "people");
   };
 
   clearPeople = () => {
@@ -99,6 +91,22 @@ class PeoplesStore {
   private setNextPage = (url: UrlType) => {
     (this.nextPage = url !== null ? +url.split("=")[1] : null),
       saveDataToLS(this.nextPage, "nextPage");
+  };
+
+  private updateDataFromLS = () => {
+    const storedPeople = localStorage.getItem("people");
+    const storedTotalCount = localStorage.getItem("totalCount");
+    const storednextPage = localStorage.getItem("nextPage");
+
+    if (storedPeople && storedTotalCount && storednextPage) {
+      try {
+        this.people = JSON.parse(storedPeople);
+        this.totalCount = JSON.parse(storedTotalCount);
+        this.nextPage = JSON.parse(storednextPage);
+      } catch (error) {
+        console.error("Error parsing people data from localStorage:", error);
+      }
+    }
   };
 }
 
