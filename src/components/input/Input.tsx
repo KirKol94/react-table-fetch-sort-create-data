@@ -1,8 +1,10 @@
 import { InputHTMLAttributes } from "react";
 import classes from "./Input.module.scss";
+import clsx from "clsx";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
-
-export const Input = ({ ...props }: InputProps) => {
-  return <input className={classes.input} {...props} />;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
+}
+export const Input = ({ className, ...props }: InputProps) => {
+  return <input className={clsx(classes.input, className)} {...props} />;
 };

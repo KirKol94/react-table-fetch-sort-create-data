@@ -19,31 +19,24 @@ export const Button = ({
   variant = "primary",
   ...props
 }: Props) => {
-  if (isLink) {
-    return (
-      <Link
-        to={url}
-        className={clsx(
-          classes.button,
-          variant === "danger" && classes.danger,
-          variant === "secondaty" && classes.secondaty
-        )}
-      >
-        {children}
-      </Link>
-    );
-  }
+  const classNameList = clsx(
+    classes.button,
+    variant === "primary" && classes.primary,
+    variant === "secondaty" && classes.secondary,
+    variant === "danger" && classes.danger
+  );
 
   return (
-    <button
-      className={clsx(
-        classes.button,
-        variant === "danger" && classes.danger,
-        variant === "secondaty" && classes.secondaty
+    <>
+      {isLink ? (
+        <Link to={url} className={classNameList}>
+          {children}
+        </Link>
+      ) : (
+        <button className={classNameList} {...props}>
+          {children}
+        </button>
       )}
-      {...props}
-    >
-      {children}
-    </button>
+    </>
   );
 };

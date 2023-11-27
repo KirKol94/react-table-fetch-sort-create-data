@@ -1,0 +1,1 @@
+export { MyRoutes } from './MyRoutes';

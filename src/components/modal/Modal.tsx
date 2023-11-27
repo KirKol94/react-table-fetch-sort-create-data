@@ -10,18 +10,21 @@ interface ModalProps {
   children: ReactNode;
 }
 
-export const Modal = ({
-  isOpen = true,
-  onClose,
-  title = "Вы уверены, что хотите удалить запись?",
-  children = "Да нет наверное",
-}: ModalProps) => {
-  const { onModalClickHandler, modalElement } = useModal({ onClose, isOpen });
+export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
+  const { handleModalClick, modalElement, handleModalKeyDown } = useModal({
+    onClose,
+    isOpen,
+  });
 
   return isOpen
     ? ReactDOM.createPortal(
         <div className={classes.overlay} onClick={onClose}>
-          <div className={classes.modal} onClick={onModalClickHandler}>
+          <div
+            className={classes.modal}
+            onClick={handleModalClick}
+            onKeyDown={handleModalKeyDown}
+            tabIndex={1}
+          >
             <div className={classes.header}>
               <h2>{title}</h2>
               <button className={classes.close} onClick={onClose}>

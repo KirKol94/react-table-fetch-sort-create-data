@@ -2,9 +2,14 @@ import { useNavigate } from "react-router-dom";
 import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/people-list";
 import { useState, ChangeEvent, FormEvent } from "react";
-import { observer } from "mobx-react-lite";
 
-export const useCreate = () => {
+interface ICreateDate {
+  formData: IPeople;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: FormEvent) => void;
+}
+
+export const useCreate = (): ICreateDate => {
   const navigate = useNavigate();
 
   const { addItem } = peoplesStore;
@@ -15,17 +20,17 @@ export const useCreate = () => {
     gender: "",
     birth_year: "",
     created: new Date().toString(),
-    height: "",
-    mass: "",
+    height: "1234",
+    mass: "1234",
     hair_color: "",
-    skin_color: "",
-    homeworld: "",
-    films: [],
-    species: [],
-    vehicles: [],
-    starships: [],
-    edited: "",
-    url: "",
+    skin_color: "1234",
+    homeworld: "1234",
+    films: ["1234"],
+    species: ["1234"],
+    vehicles: ["1234"],
+    starships: ["1234"],
+    edited: "1234",
+    url: "i1234",
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,13 +41,13 @@ export const useCreate = () => {
     }));
   };
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
 
     addItem(formData);
 
     navigate("/");
   };
 
-  return { handleChange, handleSubmit };
+  return { formData, handleChange, handleSubmit };
 };

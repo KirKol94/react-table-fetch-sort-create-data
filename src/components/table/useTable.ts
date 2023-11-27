@@ -2,12 +2,30 @@ import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/people-list";
 import { useState, useEffect } from "react";
 
-export const useTable = () => {
+enum SortOrder {
+  ASC = "asc",
+  DESC = "desc",
+  NONE = "",
+}
+
+enum ArrowDirection {
+  NONE = "",
+  DOWN = "↓",
+  UP = "↑",
+}
+
+interface ITableData {
+  getArrow: (field: keyof IPeople) => ArrowDirection;
+  sortByField: (field: keyof IPeople) => void;
+  sortedArray: IPeople[];
+  totalCount: number | null;
+  people: IPeople[];
+}
+
+export const useTable = (): ITableData => {
   const { setsortedArrayToLS, people, totalCount } = peoplesStore;
   const [sortedArray, setSortedArray] = useState<IPeople[]>(people);
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc" | null>(
-    null
-  );
+  const [sortDirection, setSortDirection] = useState<SortOrder>(SortOrder.NONE);
   const [sortColumn, setSortColumn] = useState<keyof IPeople | null>(null);
 
   const sortByField = (field: keyof IPeople) => {
@@ -23,16 +41,20 @@ export const useTable = () => {
     });
 
     setSortedArray(sorted);
-    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    setSortDirection(
+      sortDirection === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC
+    );
     setSortColumn(field);
     setsortedArrayToLS(sorted);
   };
 
   const getArrow = (field: keyof IPeople) => {
     if (field === sortColumn) {
-      return sortDirection === "asc" ? "↓" : "↑";
+      return sortDirection === SortOrder.ASC
+        ? ArrowDirection.DOWN
+        : ArrowDirection.UP;
     }
-    return "";
+    return ArrowDirection.NONE;
   };
 
   useEffect(() => {

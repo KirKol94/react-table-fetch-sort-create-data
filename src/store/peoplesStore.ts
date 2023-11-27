@@ -11,7 +11,7 @@ class PeoplesStore {
 
   isLoading: boolean = false;
   people: IPeople[] = [];
-  totalCount: number = 0;
+  totalCount: number | null = 0;
   error: string | null = null;
   nextPage: number | null = 1;
 
@@ -104,11 +104,11 @@ class PeoplesStore {
     const storedTotalCount = localStorage.getItem("totalCount");
     const storedNextPage = localStorage.getItem("nextPage");
 
-    if (storedPeople || storedTotalCount || storednextPage) {
+    if (storedPeople || storedTotalCount || storedNextPage) {
       try {
         this.people = storedPeople ? JSON.parse(storedPeople) : [];
         this.totalCount = storedTotalCount ? JSON.parse(storedTotalCount) : 0;
-        this.nextPage = storedNextPage ? JSON.parse(storedNextPage) : null;
+        this.nextPage = storedNextPage ? JSON.parse(storedNextPage) : 1;
       } catch (error) {
         console.error("Error parsing people data from localStorage:", error);
       }

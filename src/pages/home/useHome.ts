@@ -1,7 +1,22 @@
 import peoplesStore from "@/store/peoplesStore";
+import { IPeople } from "@/types/people-list";
 import { useState } from "react";
 
-export const useHome = () => {
+interface IHomeData {
+  loadMore: () => void;
+  onModalClose: () => void;
+  isOpenModal: boolean;
+  onRemoveItemRequest: (key: string) => void;
+  onRemoveWithConfirm: () => void;
+  isLoading: boolean;
+  totalCount: number | null;
+  error: string | null;
+  people: IPeople[];
+  buttonHandlerGetData: () => void;
+  buttonHandlerClearData: () => void;
+}
+
+export const useHome = (): IHomeData => {
   const {
     getData,
     loadMore,

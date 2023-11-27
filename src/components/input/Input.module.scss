@@ -5,13 +5,13 @@
    border: 1px solid $primary-color;
    border-radius: 4px;
    font-size: 16px;
-   transition: border-color 0.3s ease; // Анимация при изменении цвета рамки
+   transition: border-color 0.3s ease;
 
    &:focus {
       border-color: dodgerblue; // Цвет рамки при фокусе
    }
 
    &::placeholder {
-      color: #aaa;
+      color: $light-opacity-color;
    }
 }

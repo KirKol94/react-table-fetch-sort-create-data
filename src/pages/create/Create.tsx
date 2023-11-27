@@ -4,9 +4,22 @@ import { Button } from "@/components/button";
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useCreate } from "./useCreate";
+import { useState, useEffect } from "react";
 
-const Create = () => {
-  const { handleChange, handleSubmit } = useCreate();
+const Create = observer(() => {
+  const { formData, handleChange, handleSubmit } = useCreate();
+
+  const [formCompleted, setFormCompleted] = useState(false);
+
+  useEffect(() => {
+    const isFormCompleted =
+      formData.birth_year !== "" &&
+      formData.created !== "" &&
+      formData.eye_color !== "" &&
+      formData.gender !== null &&
+      formData.name !== "";
+    setFormCompleted(isFormCompleted);
+  }, [formData]);
 
   return (
     <div className={clsx(classes.create, "create__container")}>
@@ -42,10 +55,12 @@ const Create = () => {
           onChange={handleChange}
         />
         <Input placeholder={new Date().toString()} disabled />
-        <Button type="submit">Отправить</Button>
+        <Button type="submit" disabled={!formCompleted}>
+          Отправить
+        </Button>
       </form>
     </div>
   );
-};
+});
 
-export default observer(Create);
+export default Create;

@@ -33,16 +33,18 @@ const HomePage = observer(() => {
   return (
     <div className="home__container">
       <div className={classes.actions}>
-        <Button onClick={buttonHandlerGetData}>Запросить данные</Button>
+        <Button onClick={buttonHandlerGetData} disabled={Boolean(totalCount)}>
+          Request data
+        </Button>
         <Button
           disabled={totalCount === 0}
           variant="danger"
           onClick={buttonHandlerClearData}
         >
-          Очистить данные
+          Clear data
         </Button>
         <Button isLink={true} url="create" variant="secondaty">
-          Добавить запись
+          Add new person
         </Button>
       </div>
 
@@ -55,11 +57,11 @@ const HomePage = observer(() => {
       <Modal
         isOpen={isOpenModal}
         onClose={onModalClose}
-        title="Вы уверены, что хотите удалить запись?"
+        title="Are you sure you want to delete the entry?"
       >
-        <Button onClick={onModalClose}>Отмена</Button>
+        <Button onClick={onModalClose}>Cancel</Button>
         <Button variant="danger" onClick={onRemoveWithConfirm}>
-          Удалить
+          Delete
         </Button>
       </Modal>
     </div>

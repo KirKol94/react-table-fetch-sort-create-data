@@ -1,9 +1,19 @@
 import { useLocation } from "react-router-dom";
 
-export const useHeader = () => {
-  const links = [
-    { url: "/", name: "Главная" },
-    { url: "/description", name: "ТЗ" },
+interface ILink {
+  url: string;
+  name: string;
+}
+
+interface IHeaderData {
+  links: ILink[];
+  pathname: string;
+}
+
+export const useHeader = (): IHeaderData => {
+  const links: ILink[] = [
+    { url: "/", name: "Home" },
+    { url: "/description", name: "Tasks" },
   ];
 
   const { pathname } = useLocation();
