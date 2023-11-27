@@ -8,7 +8,8 @@ interface TableProps {
 }
 
 export const Table = observer(({ loadMore, onConfirmDeletion }: TableProps) => {
-  const { getArrow, sortByField, sortedArray, totalCount, people } = useTable();
+  const { getArrow, sortByField, sortedArray, totalCount, people, search } =
+    useTable();
 
   return (
     <div className={classes.wrapper}>
@@ -45,20 +46,22 @@ export const Table = observer(({ loadMore, onConfirmDeletion }: TableProps) => {
         </thead>
 
         <tbody className={classes.tbody}>
-          {sortedArray.map((item) => (
-            <tr
-              key={item.created}
-              className={classes.tr}
-              data-title="&times;"
-              onClick={() => onConfirmDeletion(item.created)}
-            >
-              <td className={classes.td}>{item.created}</td>
-              <td className={classes.td}>{item.birth_year}</td>
-              <td className={classes.td}>{item.eye_color}</td>
-              <td className={classes.td}>{item.gender}</td>
-              <td className={classes.td}>{item.name}</td>
-            </tr>
-          ))}
+          {sortedArray
+            .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
+            .map((item) => (
+              <tr
+                key={item.created}
+                className={classes.tr}
+                data-title="&times;"
+                onClick={() => onConfirmDeletion(item.created)}
+              >
+                <td className={classes.td}>{item.created}</td>
+                <td className={classes.td}>{item.birth_year}</td>
+                <td className={classes.td}>{item.eye_color}</td>
+                <td className={classes.td}>{item.gender}</td>
+                <td className={classes.td}>{item.name}</td>
+              </tr>
+            ))}
         </tbody>
 
         <tfoot>

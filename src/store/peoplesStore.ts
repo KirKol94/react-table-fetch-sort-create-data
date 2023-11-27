@@ -14,6 +14,7 @@ class PeoplesStore {
   totalCount: number | null = 0;
   error: string | null = null;
   nextPage: number | null = 1;
+  search: string = "";
 
   getData = async () => {
     this.setLoadingStart();
@@ -49,6 +50,10 @@ class PeoplesStore {
         this.setLoadingFinished();
       }
     }
+  };
+
+  setSearch = (value: string) => {
+    this.search = value;
   };
 
   addItem = (obj: IPeople) => {

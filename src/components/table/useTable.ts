@@ -20,10 +20,11 @@ interface ITableData {
   sortedArray: IPeople[];
   totalCount: number | null;
   people: IPeople[];
+  search: string;
 }
 
 export const useTable = (): ITableData => {
-  const { setsortedArrayToLS, people, totalCount } = peoplesStore;
+  const { setsortedArrayToLS, people, totalCount, search } = peoplesStore;
   const [sortedArray, setSortedArray] = useState<IPeople[]>(people);
   const [sortDirection, setSortDirection] = useState<SortOrder>(SortOrder.NONE);
   const [sortColumn, setSortColumn] = useState<keyof IPeople | null>(null);
@@ -61,5 +62,5 @@ export const useTable = (): ITableData => {
     setSortedArray(people);
   }, [people]);
 
-  return { getArrow, sortByField, sortedArray, totalCount, people };
+  return { getArrow, sortByField, sortedArray, totalCount, people, search };
 };

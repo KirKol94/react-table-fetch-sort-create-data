@@ -1,3 +1,5 @@
+import peoplesStore from "@/store/peoplesStore";
+import { ChangeEvent } from "react";
 import { useLocation } from "react-router-dom";
 
 interface ILink {
@@ -8,6 +10,7 @@ interface ILink {
 interface IHeaderData {
   links: ILink[];
   pathname: string;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const useHeader = (): IHeaderData => {
@@ -17,6 +20,11 @@ export const useHeader = (): IHeaderData => {
   ];
 
   const { pathname } = useLocation();
+  const { setSearch } = peoplesStore;
 
-  return { links, pathname };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  return { links, pathname, handleChange };
 };
