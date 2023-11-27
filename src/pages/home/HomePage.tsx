@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { EmptyData } from "@/components/ui/emptyData";
-import { Loader } from "@/components/ui/loader";
-import { Modal } from "@/components/ui/modal";
-import { Table } from "@/components/pages/home/table";
+import { Button } from "@/components/button";
+import { EmptyData } from "@/components/emptyData";
+import { Loader } from "@/components/loader";
+import { Modal } from "@/components/modal";
+import { Table } from "@/components/table";
 import peoplesStore from "@/store/peoplesStore";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";

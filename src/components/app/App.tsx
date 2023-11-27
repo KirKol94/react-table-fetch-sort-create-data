@@ -1,13 +1,13 @@
 import { Suspense, lazy } from "react";
-import { Header } from "@/components/layout/header";
+import { Header } from "@/components/header";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Loader } from "@/components/ui/loader";
+import { Loader } from "@/components/loader";
 
-const HomePage = lazy(() => import("@/components/pages/home/HomePage"));
+const HomePage = lazy(() => import("@/pages/home/HomePage"));
 const DescriptionPage = lazy(
-  () => import("@/components/pages/description/DescriptionPage")
+  () => import("@/pages/description/DescriptionPage")
 );
-const CreatePage = lazy(() => import("@/components/pages/create/Create"));
+const CreatePage = lazy(() => import("@/pages/create/Create"));
 
 export const App = () => {
   return (

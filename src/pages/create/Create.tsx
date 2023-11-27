@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/input";
 import classes from "./Create.module.scss";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/button";
 import clsx from "clsx";
 import { IPeople } from "@/types/people-list";
 import { observer } from "mobx-react-lite";
