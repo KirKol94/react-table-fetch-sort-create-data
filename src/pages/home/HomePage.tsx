@@ -3,54 +3,24 @@ import { EmptyData } from "@/components/emptyData";
 import { Loader } from "@/components/loader";
 import { Modal } from "@/components/modal";
 import { Table } from "@/components/table";
-import peoplesStore from "@/store/peoplesStore";
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
 import classes from "./HomePage.module.scss";
+import { useHome } from "./useHome";
 
 const HomePage = observer(() => {
   const {
-    getData,
     loadMore,
-    removeItem,
-    clearPeople,
+    isOpenModal,
+    onRemoveItemRequest,
+    onRemoveWithConfirm,
     isLoading,
-    people,
     totalCount,
     error,
-  } = peoplesStore;
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [removingItemKey, setRemovingItemKey] = useState("");
-  const onModalClose = () => {
-    setIsOpenModal(false);
-    setRemovingItemKey("");
-  };
-
-  const onModalOpen = () => {
-    setIsOpenModal(true);
-  };
-
-  const onRemoveItemRequest = (key: string) => {
-    onModalOpen();
-    setRemovingItemKey(key);
-  };
-
-  const onRemoveWithConfirm = () => {
-    if (people.length === 1) {
-      clearPeople();
-    }
-
-    removeItem(removingItemKey);
-    onModalClose();
-  };
-
-  const buttonHandlerGetData = () => {
-    getData();
-  };
-
-  const buttonHandlerClearData = () => {
-    clearPeople();
-  };
+    buttonHandlerGetData,
+    buttonHandlerClearData,
+    people,
+    onModalClose,
+  } = useHome();
 
   if (error) {
     return <div>{error}</div>;
@@ -79,12 +49,7 @@ const HomePage = observer(() => {
       {people.length === 0 ? (
         <EmptyData />
       ) : (
-        <Table
-          array={people}
-          loadMore={loadMore}
-          totalCount={totalCount}
-          onConfirmDeletion={onRemoveItemRequest}
-        />
+        <Table loadMore={loadMore} onConfirmDeletion={onRemoveItemRequest} />
       )}
 
       <Modal

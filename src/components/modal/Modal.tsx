@@ -1,6 +1,7 @@
-import { ReactNode, useCallback, useEffect } from "react";
+import { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import classes from "./Modal.module.scss";
+import { useModal } from "./useModal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -15,34 +16,7 @@ export const Modal = ({
   title = "Вы уверены, что хотите удалить запись?",
   children = "Да нет наверное",
 }: ModalProps) => {
-  const modalRoot = document.getElementById("modal-root");
-  const modalElement = document.createElement("div");
-
-  const onModalClickHandler = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-  };
-
-  const handleCloseOnEsc = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    },
-    [onClose]
-  );
-
-  useEffect(() => {
-    if (isOpen) {
-      modalRoot?.appendChild(modalElement);
-      window.addEventListener("keydown", handleCloseOnEsc);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleCloseOnEsc);
-    };
-  }, [isOpen, modalElement, modalRoot, handleCloseOnEsc]);
+  const { onModalClickHandler, modalElement } = useModal({ onClose, isOpen });
 
   return isOpen
     ? ReactDOM.createPortal(

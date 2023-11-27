@@ -1,14 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classes from "./header.module.scss";
 import clsx from "clsx";
+import { useHeader } from "./useHeader";
 
 export const Header = () => {
-  const links = [
-    { url: "/", name: "Главная" },
-    { url: "/description", name: "ТЗ" },
-  ];
-
-  const { pathname } = useLocation();
+  const { links, pathname } = useHeader();
 
   return (
     <header className={classes.header}>

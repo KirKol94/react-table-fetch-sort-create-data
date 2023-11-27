@@ -100,21 +100,15 @@ class PeoplesStore {
   };
 
   private updateDataFromLS = () => {
-    const storedPeople: string | null = localStorage.getItem("people");
-    const storedTotalCount: string | null = localStorage.getItem("totalCount");
-    const storednextPage: string | null = localStorage.getItem("nextPage");
+    const storedPeople = localStorage.getItem("people");
+    const storedTotalCount = localStorage.getItem("totalCount");
+    const storedNextPage = localStorage.getItem("nextPage");
 
     if (storedPeople || storedTotalCount || storednextPage) {
       try {
-        if (storedPeople !== null) {
-          this.people = JSON.parse(storedPeople);
-        }
-        if (storedTotalCount !== null) {
-          this.totalCount = JSON.parse(storedTotalCount);
-        }
-        if (storednextPage !== null) {
-          this.nextPage = JSON.parse(storednextPage);
-        }
+        this.people = storedPeople ? JSON.parse(storedPeople) : [];
+        this.totalCount = storedTotalCount ? JSON.parse(storedTotalCount) : 0;
+        this.nextPage = storedNextPage ? JSON.parse(storedNextPage) : null;
       } catch (error) {
         console.error("Error parsing people data from localStorage:", error);
       }
