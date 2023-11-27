@@ -14,4 +14,8 @@
    &::placeholder {
       color: $light-opacity-color;
    }
+
+   &:disabled {
+      cursor: not-allowed;
+   }
 }

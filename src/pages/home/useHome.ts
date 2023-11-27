@@ -1,19 +1,19 @@
 import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/people-list";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface IHomeData {
   loadMore: () => void;
-  onModalClose: () => void;
+  handleClose: () => void;
   isOpenModal: boolean;
-  onRemoveItemRequest: (key: string) => void;
-  onRemoveWithConfirm: () => void;
+  handleRemoveRequest: (key: string) => void;
+  handleRemove: () => void;
   isLoading: boolean;
   totalCount: number | null;
   error: string | null;
   people: IPeople[];
-  buttonHandlerGetData: () => void;
-  buttonHandlerClearData: () => void;
+  handleGetData: () => void;
+  handleClearList: () => void;
 }
 
 export const useHome = (): IHomeData => {
@@ -30,48 +30,62 @@ export const useHome = (): IHomeData => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [removingItemKey, setRemovingItemKey] = useState("");
-  const onModalClose = () => {
+  const handleClose = () => {
     setIsOpenModal(false);
     setRemovingItemKey("");
   };
 
-  const onModalOpen = () => {
+  const handleOpen = () => {
     setIsOpenModal(true);
   };
 
-  const onRemoveItemRequest = (key: string) => {
-    onModalOpen();
+  const handleRemoveRequest = (key: string) => {
+    handleOpen();
     setRemovingItemKey(key);
   };
 
-  const onRemoveWithConfirm = () => {
+  const handleRemove = () => {
     if (people.length === 1) {
       clearPeople();
     }
 
     removeItem(removingItemKey);
-    onModalClose();
+    handleClose();
   };
 
-  const buttonHandlerGetData = () => {
+  const handleGetData = () => {
     getData();
   };
 
-  const buttonHandlerClearData = () => {
+  const handleClearList = () => {
     clearPeople();
   };
 
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (isOpenModal && e.key === "Enter") {
+        handleRemove();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [isOpenModal, handleRemove]);
+
   return {
     loadMore,
-    onModalClose,
+    handleClose,
     isOpenModal,
-    onRemoveItemRequest,
-    onRemoveWithConfirm,
+    handleRemoveRequest,
+    handleRemove,
     isLoading,
     totalCount,
     error,
     people,
-    buttonHandlerGetData,
-    buttonHandlerClearData,
+    handleGetData,
+    handleClearList,
   };
 };

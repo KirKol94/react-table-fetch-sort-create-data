@@ -11,15 +11,15 @@ const HomePage = observer(() => {
   const {
     loadMore,
     isOpenModal,
-    onRemoveItemRequest,
-    onRemoveWithConfirm,
+    handleRemoveRequest,
+    handleRemove,
     isLoading,
     totalCount,
     error,
-    buttonHandlerGetData,
-    buttonHandlerClearData,
+    handleGetData,
+    handleClearList,
     people,
-    onModalClose,
+    handleClose,
   } = useHome();
 
   if (error) {
@@ -33,13 +33,13 @@ const HomePage = observer(() => {
   return (
     <div className="home__container">
       <div className={classes.actions}>
-        <Button onClick={buttonHandlerGetData} disabled={Boolean(totalCount)}>
+        <Button onClick={handleGetData} disabled={Boolean(totalCount)}>
           Request data
         </Button>
         <Button
           disabled={totalCount === 0}
           variant="danger"
-          onClick={buttonHandlerClearData}
+          onClick={handleClearList}
         >
           Clear data
         </Button>
@@ -51,16 +51,16 @@ const HomePage = observer(() => {
       {people.length === 0 ? (
         <EmptyData />
       ) : (
-        <Table loadMore={loadMore} onConfirmDeletion={onRemoveItemRequest} />
+        <Table loadMore={loadMore} onConfirmDeletion={handleRemoveRequest} />
       )}
 
       <Modal
         isOpen={isOpenModal}
-        onClose={onModalClose}
+        onClose={handleClose}
         title="Are you sure you want to delete the entry?"
       >
-        <Button onClick={onModalClose}>Cancel</Button>
-        <Button variant="danger" onClick={onRemoveWithConfirm}>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button variant="danger" onClick={handleRemove}>
           Delete
         </Button>
       </Modal>

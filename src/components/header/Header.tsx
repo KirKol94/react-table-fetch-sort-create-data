@@ -3,14 +3,19 @@ import classes from "./header.module.scss";
 import clsx from "clsx";
 import { useHeader } from "./useHeader";
 import { Input } from "../input";
+import { observer } from "mobx-react-lite";
 
-export const Header = () => {
-  const { links, pathname, handleChange } = useHeader();
+export const Header = observer(() => {
+  const { links, pathname, handleChange, peopleLength } = useHeader();
 
   return (
     <header className={classes.header}>
       <div className={classes.header__container}>
-        <Input placeholder="Search name" onChange={handleChange} />
+        <Input
+          disabled={!peopleLength}
+          placeholder="Search name"
+          onChange={handleChange}
+        />
 
         <nav>
           <ul className={classes.list}>
@@ -32,4 +37,4 @@ export const Header = () => {
       </div>
     </header>
   );
-};
+});

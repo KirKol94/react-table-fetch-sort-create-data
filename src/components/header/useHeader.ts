@@ -11,6 +11,7 @@ interface IHeaderData {
   links: ILink[];
   pathname: string;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  peopleLength: number;
 }
 
 export const useHeader = (): IHeaderData => {
@@ -20,11 +21,13 @@ export const useHeader = (): IHeaderData => {
   ];
 
   const { pathname } = useLocation();
-  const { setSearch } = peoplesStore;
+  const { setSearch, people } = peoplesStore;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  return { links, pathname, handleChange };
+  const peopleLength = people.length;
+
+  return { links, pathname, handleChange, peopleLength };
 };
