@@ -1,6 +1,6 @@
 import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/people-list";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface IHomeData {
   loadMore: () => void;
@@ -44,14 +44,14 @@ export const useHome = (): IHomeData => {
     setRemovingItemKey(key);
   };
 
-  const handleRemove = () => {
+  const handleRemove = useCallback(() => {
     if (people.length === 1) {
       clearPeople();
     }
 
     removeItem(removingItemKey);
     handleClose();
-  };
+  }, [clearPeople, people.length, removeItem, removingItemKey]);
 
   const handleGetData = () => {
     getData();
