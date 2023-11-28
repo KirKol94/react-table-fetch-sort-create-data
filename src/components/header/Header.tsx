@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 import classes from "./header.module.scss";
 import clsx from "clsx";
 import { useHeader } from "./useHeader";
-import { observer } from "mobx-react-lite";
 import { HEADER_LINKS } from "@/consts/links";
 
-export const Header = observer(() => {
+export const Header = () => {
   const { pathname } = useHeader();
 
   return (
@@ -31,4 +30,4 @@ export const Header = observer(() => {
       </div>
     </header>
   );
-});
+};
