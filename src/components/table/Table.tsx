@@ -52,7 +52,6 @@ export const Table = observer(({ loadMore, onConfirmDeletion }: TableProps) => {
               <tr
                 key={item.created}
                 className={classes.tr}
-                data-title="&times;"
                 onClick={() => onConfirmDeletion(item.created)}
               >
                 <td className={classes.td}>{item.created}</td>

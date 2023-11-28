@@ -21,47 +21,19 @@
    text-align: left;
 
    &:not([data-sort]) {
-      cursor: not-allowed;
+      font-weight: normal;
+      cursor: default;
    }
 
    &[data-sort] {
       cursor: pointer;
       position: relative;
-      background-image: linear-gradient(90deg, $dark-color 50%, transparent 50%),
-         linear-gradient(90deg, $dark-color 50%, transparent 50%), linear-gradient(0, $dark-color 50%, transparent 50%),
-         linear-gradient(0, $dark-color 50%, transparent 50%);
-      background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-      background-size:
-         2px 2px,
-         2px 2px,
-         2px 2px,
-         2px 2px;
-
-      animation: marching-ants 400ms infinite linear;
-
       &::after {
          content: attr(data-arrow);
          position: absolute;
          left: 100%;
          top: 50%;
          transform: translate(-150%, -50%);
-      }
-   }
-
-   @keyframes marching-ants {
-      0% {
-         background-position:
-            0 0,
-            10px 100%,
-            0 10px,
-            100% 0;
-      }
-      100% {
-         background-position:
-            10px 0,
-            0 100%,
-            0 0,
-            100% 10px;
       }
    }
 }
@@ -77,18 +49,6 @@
 
       &:hover {
          background-color: #e6f7ff;
-
-         &::after {
-            content: attr(data-title);
-            position: absolute;
-            left: 100%;
-            top: 50%;
-            transform: translate(-150%, -50%);
-            background-color: $dark-color;
-            color: $light-color;
-            padding: 4px;
-            border-radius: 4px;
-         }
       }
    }
 }

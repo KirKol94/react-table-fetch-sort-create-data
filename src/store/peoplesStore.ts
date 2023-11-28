@@ -59,6 +59,10 @@ class PeoplesStore {
   addItem = (obj: IPeople) => {
     this.people = [...this.people, obj];
 
+    if (this.people.length === 1) {
+      this.nextPage = 1;
+    }
+
     saveDataToLS(this.people, "people");
   };
 

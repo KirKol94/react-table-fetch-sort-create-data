@@ -33,7 +33,7 @@ const HomePage = observer(() => {
   return (
     <div className="home__container">
       <div className={classes.actions}>
-        <Button onClick={handleGetData} disabled={Boolean(totalCount)}>
+        <Button onClick={handleGetData} disabled={Boolean(people.length)}>
           Request data
         </Button>
         <Button
