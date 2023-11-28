@@ -9,7 +9,6 @@ interface IHomeData {
   handleRemoveRequest: (key: string) => void;
   handleRemove: () => void;
   isLoading: boolean;
-  totalCount: number | null;
   error: string | null;
   people: IPeople[];
   handleGetData: () => void;
@@ -26,7 +25,6 @@ export const useHome = (): IHomeData => {
     clearPeople,
     people,
     isLoading,
-    totalCount,
     error,
   } = peoplesStore;
 
@@ -88,7 +86,6 @@ export const useHome = (): IHomeData => {
     handleRemoveRequest,
     handleRemove,
     isLoading,
-    totalCount,
     error,
     people,
     handleGetData,

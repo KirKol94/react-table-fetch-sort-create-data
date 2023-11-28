@@ -13,7 +13,6 @@ const HomePage = observer(() => {
     isOpenModal,
     handleRemoveRequest,
     handleRemove,
-    totalCount,
     error,
     handleGetData,
     handleClearList,
@@ -38,7 +37,7 @@ const HomePage = observer(() => {
             Request data
           </Button>
           <Button
-            disabled={!totalCount || isLoading}
+            disabled={!people.length || isLoading}
             variant="danger"
             onClick={handleClearList}
           >
