@@ -21,6 +21,7 @@ const Create = observer(() => {
             placeholder={input.placeHolder}
             value={input.value}
             onChange={handleChange}
+            autoComplete="off"
           />
         ))}
 
