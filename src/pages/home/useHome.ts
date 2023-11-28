@@ -1,6 +1,6 @@
 import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/people-list";
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 interface IHomeData {
   loadMore: () => void;
@@ -14,11 +14,13 @@ interface IHomeData {
   people: IPeople[];
   handleGetData: () => void;
   handleClearList: () => void;
+  handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const useHome = (): IHomeData => {
   const {
     getData,
+    setSearch,
     loadMore,
     removeItem,
     clearPeople,
@@ -61,6 +63,10 @@ export const useHome = (): IHomeData => {
     clearPeople();
   };
 
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (isOpenModal && e.key === "Enter") {
@@ -87,5 +93,6 @@ export const useHome = (): IHomeData => {
     people,
     handleGetData,
     handleClearList,
+    handleSearchChange,
   };
 };

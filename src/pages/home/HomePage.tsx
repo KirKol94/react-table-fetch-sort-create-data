@@ -6,6 +6,7 @@ import { Table } from "@/components/table";
 import { observer } from "mobx-react-lite";
 import classes from "./HomePage.module.scss";
 import { useHome } from "./useHome";
+import { Input } from "@/components/input";
 
 const HomePage = observer(() => {
   const {
@@ -20,6 +21,7 @@ const HomePage = observer(() => {
     handleClearList,
     people,
     handleClose,
+    handleSearchChange,
   } = useHome();
 
   if (error) {
@@ -33,19 +35,28 @@ const HomePage = observer(() => {
   return (
     <div className="home__container">
       <div className={classes.actions}>
-        <Button onClick={handleGetData} disabled={Boolean(people.length)}>
-          Request data
-        </Button>
-        <Button
-          disabled={totalCount === 0}
-          variant="danger"
-          onClick={handleClearList}
-        >
-          Clear data
-        </Button>
-        <Button isLink={true} url="create" variant="secondaty">
-          Add new person
-        </Button>
+        <div className={classes.buttons}>
+          <Button onClick={handleGetData} disabled={Boolean(people.length)}>
+            Request data
+          </Button>
+          <Button
+            disabled={totalCount === 0}
+            variant="danger"
+            onClick={handleClearList}
+          >
+            Clear data
+          </Button>
+          <Button isLink={true} url="create" variant="secondaty">
+            Add new person
+          </Button>
+        </div>
+
+        <Input
+          className={classes["search-input"]}
+          disabled={!people.length}
+          placeholder="Search name"
+          onChange={handleSearchChange}
+        />
       </div>
 
       {people.length === 0 ? (
