@@ -14,9 +14,10 @@ const Create = observer(() => {
       <h1 className={classes.title}>Create new people</h1>
 
       <form onSubmit={handleSubmit} className={classes.form}>
-        {inputsData.map((input) => (
+        {inputsData.map((input, index) => (
           <Input
             key={input.key}
+            autoFocus={index === 0}
             name={input.key}
             placeholder={input.placeHolder}
             value={input.value}
