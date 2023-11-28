@@ -55,7 +55,7 @@ export const useCreate = (): ICreateDate => {
 
     addItem(formData);
 
-    navigate(PATH.BASE);
+    navigate(PATH.BASE, { state: { from: PATH.CREATE } });
   };
 
   const inputsData: IInputData[] = [
