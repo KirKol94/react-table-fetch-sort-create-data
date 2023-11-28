@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import classes from "./Button.module.scss";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { PATH } from "@/consts/paths";
 
 type VariantButton = "danger" | "primary" | "secondaty";
 
@@ -9,7 +10,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: VariantButton;
   isLink?: boolean;
-  url?: string | undefined;
+  url?: PATH;
 }
 
 export const Button = ({
