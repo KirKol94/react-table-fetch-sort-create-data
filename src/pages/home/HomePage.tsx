@@ -6,20 +6,23 @@ import { observer } from "mobx-react-lite";
 import classes from "./HomePage.module.scss";
 import { useHome } from "./useHome";
 import { Input } from "@/components/input";
+import { PATH } from "@/consts/paths";
 
 const HomePage = observer(() => {
   const {
     loadMore,
-    isOpenModal,
     handleRemoveRequest,
     handleRemove,
     error,
     handleGetData,
     handleClearList,
     people,
-    handleClose,
+    handleCloseRemoveModal,
+    isOpenRemoveModal,
     handleSearchChange,
     isLoading,
+    isEntryCreated,
+    handleCloseCreatedModal,
   } = useHome();
 
   if (error) {
@@ -43,7 +46,7 @@ const HomePage = observer(() => {
           >
             Clear data
           </Button>
-          <Button isLink={true} url="create" variant="secondaty">
+          <Button isLink={true} url={PATH.CREATE} variant="secondaty">
             Add new person
           </Button>
         </div>
@@ -63,14 +66,22 @@ const HomePage = observer(() => {
       )}
 
       <Modal
-        isOpen={isOpenModal}
-        onClose={handleClose}
+        isOpen={isOpenRemoveModal}
+        onClose={handleCloseRemoveModal}
         title="Are you sure you want to delete the entry?"
       >
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleCloseRemoveModal}>Cancel</Button>
         <Button variant="danger" onClick={handleRemove}>
           Delete
         </Button>
+      </Modal>
+
+      <Modal
+        isOpen={isEntryCreated}
+        onClose={handleCloseCreatedModal}
+        title="Entry added successfully"
+      >
+        <Button onClick={handleCloseCreatedModal}>Great!</Button>
       </Modal>
     </div>
   );

@@ -1,11 +1,13 @@
+import { PATH } from "@/consts/paths";
 import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/people-list";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IHomeData {
   loadMore: () => void;
-  handleClose: () => void;
-  isOpenModal: boolean;
+  handleCloseRemoveModal: () => void;
+  isOpenRemoveModal: boolean;
   handleRemoveRequest: (key: string) => void;
   handleRemove: () => void;
   isLoading: boolean;
@@ -14,6 +16,8 @@ interface IHomeData {
   handleGetData: () => void;
   handleClearList: () => void;
   handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  isEntryCreated: boolean;
+  handleCloseCreatedModal: () => void;
 }
 
 export const useHome = (): IHomeData => {
@@ -27,16 +31,24 @@ export const useHome = (): IHomeData => {
     isLoading,
     error,
   } = peoplesStore;
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenRemoveModal, setIsOpenRemoveModal] = useState(false);
+  const [isEntryCreated, setIsEntryCreated] = useState(false);
   const [removingItemKey, setRemovingItemKey] = useState("");
-  const handleClose = () => {
-    setIsOpenModal(false);
+
+  const handleCloseRemoveModal = () => {
+    setIsOpenRemoveModal(false);
     setRemovingItemKey("");
   };
 
+  const handleCloseCreatedModal = useCallback(() => {
+    setIsEntryCreated(false);
+  }, []);
+
   const handleOpen = () => {
-    setIsOpenModal(true);
+    setIsOpenRemoveModal(true);
   };
 
   const handleRemoveRequest = (key: string) => {
@@ -50,7 +62,7 @@ export const useHome = (): IHomeData => {
     }
 
     removeItem(removingItemKey);
-    handleClose();
+    handleCloseRemoveModal();
   }, [clearPeople, people.length, removeItem, removingItemKey]);
 
   const handleGetData = () => {
@@ -67,8 +79,11 @@ export const useHome = (): IHomeData => {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (isOpenModal && e.key === "Enter") {
+      if (isOpenRemoveModal && e.key === "Enter") {
         handleRemove();
+      }
+      if (isEntryCreated && e.key === "Enter") {
+        handleCloseCreatedModal();
       }
     };
 
@@ -77,12 +92,24 @@ export const useHome = (): IHomeData => {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [isOpenModal, handleRemove]);
+  }, [
+    isOpenRemoveModal,
+    handleRemove,
+    isEntryCreated,
+    handleCloseCreatedModal,
+  ]);
+
+  useEffect(() => {
+    if (location?.state?.from === PATH.CREATE) {
+      setIsEntryCreated(true);
+      navigate("/", {});
+    }
+  }, [location, navigate]);
 
   return {
     loadMore,
-    handleClose,
-    isOpenModal,
+    handleCloseRemoveModal,
+    isOpenRemoveModal,
     handleRemoveRequest,
     handleRemove,
     isLoading,
@@ -91,5 +118,7 @@ export const useHome = (): IHomeData => {
     handleGetData,
     handleClearList,
     handleSearchChange,
+    isEntryCreated,
+    handleCloseCreatedModal,
   };
 };
