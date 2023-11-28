@@ -1,6 +1,7 @@
 import classes from "./Table.module.scss";
 import { observer } from "mobx-react-lite";
 import { useTable } from "./useTable";
+import { Loader } from "../loader";
 
 interface TableProps {
   onConfirmDeletion: (key: string) => void;
@@ -8,8 +9,20 @@ interface TableProps {
 }
 
 export const Table = observer(({ loadMore, onConfirmDeletion }: TableProps) => {
-  const { getArrow, sortByField, sortedArray, totalCount, people, search } =
-    useTable();
+  const {
+    getArrow,
+    sortByField,
+    sortedArray,
+    totalCount,
+    people,
+    search,
+    isLoading,
+    nextPage,
+  } = useTable();
+
+  if (isLoading && !people.length) {
+    return <Loader />;
+  }
 
   return (
     <div className={classes.wrapper}>
@@ -68,11 +81,13 @@ export const Table = observer(({ loadMore, onConfirmDeletion }: TableProps) => {
             <td colSpan={5} className={classes["load-more"]}>
               <button
                 onClick={loadMore}
-                disabled={totalCount === people.length}
+                disabled={
+                  isLoading ||
+                  nextPage === null ||
+                  Boolean(totalCount && totalCount <= people.length)
+                }
               >
-                {totalCount === people.length
-                  ? "Это все данные"
-                  : "Загрузить ещё"}
+                Load more
               </button>
             </td>
           </tr>

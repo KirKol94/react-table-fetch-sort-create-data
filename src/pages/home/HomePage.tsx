@@ -1,6 +1,5 @@
 import { Button } from "@/components/button";
 import { EmptyData } from "@/components/emptyData";
-import { Loader } from "@/components/loader";
 import { Modal } from "@/components/modal";
 import { Table } from "@/components/table";
 import { observer } from "mobx-react-lite";
@@ -14,7 +13,6 @@ const HomePage = observer(() => {
     isOpenModal,
     handleRemoveRequest,
     handleRemove,
-    isLoading,
     totalCount,
     error,
     handleGetData,
@@ -22,25 +20,25 @@ const HomePage = observer(() => {
     people,
     handleClose,
     handleSearchChange,
+    isLoading,
   } = useHome();
 
   if (error) {
     return <div>{error}</div>;
   }
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <div className="home__container">
       <div className={classes.actions}>
         <div className={classes.buttons}>
-          <Button onClick={handleGetData} disabled={Boolean(people.length)}>
+          <Button
+            onClick={handleGetData}
+            disabled={Boolean(people.length) || isLoading}
+          >
             Request data
           </Button>
           <Button
-            disabled={totalCount === 0}
+            disabled={!totalCount || isLoading}
             variant="danger"
             onClick={handleClearList}
           >
@@ -59,7 +57,7 @@ const HomePage = observer(() => {
         />
       </div>
 
-      {people.length === 0 ? (
+      {!people.length && !isLoading ? (
         <EmptyData />
       ) : (
         <Table loadMore={loadMore} onConfirmDeletion={handleRemoveRequest} />
