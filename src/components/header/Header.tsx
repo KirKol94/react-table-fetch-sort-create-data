@@ -3,16 +3,17 @@ import classes from "./header.module.scss";
 import clsx from "clsx";
 import { useHeader } from "./useHeader";
 import { observer } from "mobx-react-lite";
+import { HEADER_LINKS } from "@/consts/links";
 
 export const Header = observer(() => {
-  const { links, pathname } = useHeader();
+  const { pathname } = useHeader();
 
   return (
     <header className={classes.header}>
       <div className={classes.header__container}>
         <nav>
           <ul className={classes.list}>
-            {links.map(({ url, name }) => (
+            {HEADER_LINKS.map(({ url, name }) => (
               <li key={url} className={classes.item}>
                 <Link
                   to={url}

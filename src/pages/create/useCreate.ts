@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/people-list";
 import { useState, ChangeEvent, FormEvent } from "react";
+import { PATH } from "@/consts/paths";
 
 interface IInputData {
   key: keyof IPeople;
@@ -54,7 +55,7 @@ export const useCreate = (): ICreateDate => {
 
     addItem(formData);
 
-    navigate("/");
+    navigate(PATH.BASE);
   };
 
   const inputsData: IInputData[] = [
