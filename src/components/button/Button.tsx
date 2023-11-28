@@ -16,7 +16,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = ({
   children,
   isLink,
-  url = "",
+  url = PATH.BASE,
   variant = "primary",
   ...props
 }: Props) => {
