@@ -30,10 +30,10 @@ export const useModal = ({ onClose, isOpen }: IUseModalProps): IModalData => {
     [onClose]
   );
 
-  const handleModalKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const modalWrapper = event.currentTarget;
+  const handleModalKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const modalWrapper = e.currentTarget;
 
-    if (event.key === "Tab" && modalWrapper) {
+    if (e.key === "Tab" && modalWrapper) {
       const modalElements = modalWrapper.querySelectorAll<HTMLElement>(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
@@ -41,11 +41,11 @@ export const useModal = ({ onClose, isOpen }: IUseModalProps): IModalData => {
       const firstElement = modalElements[0];
       const lastElement = modalElements[modalElements.length - 1];
 
-      if (event.shiftKey && document.activeElement === firstElement) {
-        event.preventDefault();
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
         lastElement.focus();
-      } else if (!event.shiftKey && document.activeElement === lastElement) {
-        event.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
         firstElement.focus();
       }
     }

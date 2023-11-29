@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import classes from "./Modal.module.scss";
 import { useModal } from "./useModal";
@@ -11,10 +11,18 @@ interface ModalProps {
 }
 
 export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   const { handleModalClick, modalElement, handleModalKeyDown } = useModal({
     onClose,
     isOpen,
   });
+
+  useEffect(() => {
+    if (isOpen && closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    }
+  }, [closeButtonRef, isOpen]);
 
   return isOpen
     ? ReactDOM.createPortal(
@@ -27,7 +35,11 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
           >
             <div className={classes.header}>
               <h2>{title}</h2>
-              <button className={classes.close} onClick={onClose}>
+              <button
+                ref={closeButtonRef}
+                className={classes.close}
+                onClick={onClose}
+              >
                 &times;
               </button>
             </div>
