@@ -7,7 +7,7 @@ import { StrictMode } from "react";
 
 if (process.env.NODE_ENV === "development") {
   spy((e) => {
-    e.type === "action" && console.log(e);
+    e.type === "action" && e.name !== "<unnamed action>" && console.log(e);
   });
 }
 
