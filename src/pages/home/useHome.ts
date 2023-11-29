@@ -1,6 +1,6 @@
 import { PATH } from "@/consts/paths";
 import peoplesStore from "@/store/peoplesStore";
-import { IPeople } from "@/types/people-list";
+import { IPeople } from "@/types/peopleData";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 

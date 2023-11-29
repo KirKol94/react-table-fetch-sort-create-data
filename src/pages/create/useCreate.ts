@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import peoplesStore from "@/store/peoplesStore";
-import { IPeople } from "@/types/people-list";
+import { IPeople } from "@/types/peopleData";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { PATH } from "@/consts/paths";
 

@@ -1,4 +1,4 @@
-import { IPeople } from "@/types/people-list";
+import { IPeople } from "@/types/peopleData";
 
 interface TableBodyRowProps {
   data: IPeople;

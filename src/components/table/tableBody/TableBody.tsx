@@ -1,4 +1,4 @@
-import { IPeople } from "@/types/people-list";
+import { IPeople } from "@/types/peopleData";
 import { TableBodyRow } from "../tableBodyRow";
 
 interface TableBodyProps {

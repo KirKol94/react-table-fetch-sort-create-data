@@ -1,5 +1,5 @@
 import { BASE_API_URL } from "@/consts/baseApiUrl";
-import { IResponse } from "@/types/people-list";
+import { IResponse } from "@/types/peopleData";
 import ky from "ky";
 
 class Api {

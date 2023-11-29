@@ -1,5 +1,5 @@
 import peoplesStore from "@/store/peoplesStore";
-import { IPeople } from "@/types/people-list";
+import { IPeople } from "@/types/peopleData";
 import { useState, useEffect } from "react";
 
 export enum SortOrder {

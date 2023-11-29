@@ -1,5 +1,5 @@
 import { api } from "@/api/api";
-import { IPeople, IResponse } from "@/types/people-list";
+import { IPeople, IResponse } from "@/types/peopleData";
 import { saveDataToLS } from "@/utils/saveDataToLS";
 import { makeAutoObservable, runInAction } from "mobx";
 
