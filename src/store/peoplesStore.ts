@@ -80,6 +80,7 @@ class PeoplesStore {
         this.totalCount = data.count;
         saveDataToLS(data.count, "totalCount");
 
+        // делим строку https://data.com/?page=1 по знаку =
         this.nextPage = data.next !== null ? +data.next.split("=")[1] : null;
         saveDataToLS(this.nextPage, "nextPage");
       });
