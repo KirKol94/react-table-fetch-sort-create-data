@@ -2,13 +2,13 @@ import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/people-list";
 import { useState, useEffect } from "react";
 
-enum SortOrder {
+export enum SortOrder {
   ASC = "asc",
   DESC = "desc",
   NONE = "",
 }
 
-enum ArrowDirection {
+export enum ArrowDirection {
   NONE = "",
   DOWN = "↓",
   UP = "↑",
