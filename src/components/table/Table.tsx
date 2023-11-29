@@ -13,7 +13,6 @@ export const Table = observer(({ loadMore, onConfirmDeletion }: TableProps) => {
     getArrow,
     sortByField,
     sortedArray,
-    totalCount,
     people,
     search,
     isLoading,
@@ -81,11 +80,7 @@ export const Table = observer(({ loadMore, onConfirmDeletion }: TableProps) => {
             <td colSpan={5} className={classes["load-more"]}>
               <button
                 onClick={loadMore}
-                disabled={
-                  isLoading ||
-                  nextPage === null ||
-                  Boolean(totalCount && totalCount <= people.length)
-                }
+                disabled={isLoading || nextPage === null}
               >
                 Load more
               </button>

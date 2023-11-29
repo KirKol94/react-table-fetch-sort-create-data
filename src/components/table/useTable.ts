@@ -18,7 +18,6 @@ interface ITableData {
   getArrow: (field: keyof IPeople) => ArrowDirection;
   sortByField: (field: keyof IPeople) => void;
   sortedArray: IPeople[];
-  totalCount: number | null;
   people: IPeople[];
   search: string;
   isLoading: boolean;
@@ -26,14 +25,8 @@ interface ITableData {
 }
 
 export const useTable = (): ITableData => {
-  const {
-    isLoading,
-    nextPage,
-    setsortedArrayToLS,
-    people,
-    totalCount,
-    search,
-  } = peoplesStore;
+  const { isLoading, nextPage, setsortedArrayToLS, people, search } =
+    peoplesStore;
   const [sortedArray, setSortedArray] = useState<IPeople[]>(people);
   const [sortDirection, setSortDirection] = useState<SortOrder>(SortOrder.NONE);
   const [sortColumn, setSortColumn] = useState<keyof IPeople | null>(null);
@@ -75,7 +68,6 @@ export const useTable = (): ITableData => {
     getArrow,
     sortByField,
     sortedArray,
-    totalCount,
     people,
     search,
     isLoading,

@@ -1,7 +1,7 @@
 import { api } from "@/api/api";
-import { IPeople, UrlType } from "@/types/people-list";
+import { IPeople } from "@/types/people-list";
 import { saveDataToLS } from "@/utils/saveDataToLS";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 
 class PeoplesStore {
   constructor() {
@@ -17,37 +17,66 @@ class PeoplesStore {
   search: string = "";
 
   getData = async () => {
-    this.setLoadingStart();
+    this.isLoading = true;
+
     try {
       const data = await api.getData();
-      this.setPeople(data.results);
-      this.setTotalCount(data.count);
-      this.setNextPage(data.next);
+
+      runInAction(() => {
+        this.people = data.results;
+        saveDataToLS(data.results, "people");
+        this.totalCount = data.count;
+        saveDataToLS(data.count, "totalCount");
+        (this.nextPage = data.next !== null ? +data.next.split("=")[1] : null),
+          saveDataToLS(this.nextPage, "nextPage");
+      });
     } catch (error: unknown) {
       if (typeof error === "object" && error !== null && "message" in error) {
-        this.error = (error as Error).message;
+        runInAction(() => {
+          this.error = (error as Error).message;
+        });
       } else {
-        this.error = "Что-то пошло не так при загрузке данных";
+        runInAction(() => {
+          this.error = "Что-то пошло не так при загрузке данных";
+        });
       }
     } finally {
-      this.setLoadingFinished();
+      runInAction(() => {
+        this.isLoading = false;
+      });
     }
   };
 
   loadMore = async () => {
-    if (this.nextPage !== null && this.people.length !== this.totalCount) {
-      this.setLoadingStart();
-      const moreData = await api.getData(this.nextPage);
-      try {
-        this.setPeople([...this.people, ...moreData.results]);
-        this.setNextPage(moreData.next);
-        this.setTotalCount(moreData.count);
+    this.isLoading = true;
 
-        saveDataToLS(this.nextPage, "nextPage");
+    if (this.nextPage !== null) {
+      try {
+        const moreData = await api.getData(this.nextPage);
+
+        runInAction(() => {
+          this.people = [...this.people, ...moreData.results];
+          saveDataToLS(this.people, "people");
+          this.totalCount = moreData.count;
+          saveDataToLS(moreData.count, "totalCount");
+          (this.nextPage =
+            moreData.next !== null ? +moreData.next.split("=")[1] : null),
+            saveDataToLS(this.nextPage, "nextPage");
+        });
       } catch (error: unknown) {
-        console.log((error as Error).message);
+        if (typeof error === "object" && error !== null && "message" in error) {
+          runInAction(() => {
+            this.error = (error as Error).message;
+          });
+        } else {
+          runInAction(() => {
+            this.error = "Что-то пошло не так при загрузке данных";
+          });
+        }
       } finally {
-        this.setLoadingFinished();
+        runInAction(() => {
+          this.isLoading = false;
+        });
       }
     }
   };
@@ -82,30 +111,6 @@ class PeoplesStore {
     this.totalCount = 0;
 
     localStorage.clear();
-  };
-
-  private setLoadingStart = () => {
-    this.isLoading = true;
-    this.error = null;
-  };
-
-  private setLoadingFinished = () => {
-    this.isLoading = false;
-  };
-
-  private setPeople = (array: IPeople[]) => {
-    this.people = array;
-    saveDataToLS(this.people, "people");
-  };
-
-  private setTotalCount = (count: number) => {
-    this.totalCount = count;
-    saveDataToLS(this.totalCount, "totalCount");
-  };
-
-  private setNextPage = (url: UrlType) => {
-    (this.nextPage = url !== null ? +url.split("=")[1] : null),
-      saveDataToLS(this.nextPage, "nextPage");
   };
 
   private updateDataFromLS = () => {
