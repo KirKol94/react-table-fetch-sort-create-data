@@ -50,7 +50,7 @@ class PeoplesStore {
     saveDataToLS(arr, "people");
   };
 
-  clearPeople = () => {
+  clearData = () => {
     this.people = [];
     this.nextPage = null;
     this.totalCount = 0;

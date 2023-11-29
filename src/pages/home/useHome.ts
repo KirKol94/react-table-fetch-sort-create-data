@@ -26,7 +26,7 @@ export const useHome = (): IHomeData => {
     setSearch,
     loadMore,
     removeItem,
-    clearPeople,
+    clearData,
     people,
     isLoading,
     error,
@@ -58,19 +58,19 @@ export const useHome = (): IHomeData => {
 
   const handleRemove = useCallback(() => {
     if (people.length === 1) {
-      clearPeople();
+      clearData();
     }
 
     removeItem(removingItemKey);
     handleCloseRemoveModal();
-  }, [clearPeople, people.length, removeItem, removingItemKey]);
+  }, [clearData, people.length, removeItem, removingItemKey]);
 
   const handleGetData = () => {
     getData();
   };
 
   const handleClearList = () => {
-    clearPeople();
+    clearData();
   };
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
