@@ -1,6 +1,6 @@
 import { api } from "@/api/api";
 import { IPeople, IResponse } from "@/types/peopleData";
-import { saveDataToLS } from "@/utils/saveDataToLS";
+import { getDataFromLS, saveDataToLS } from "@/utils/localStorage";
 import { makeAutoObservable, runInAction } from "mobx";
 
 class PeoplesStore {
@@ -98,19 +98,13 @@ class PeoplesStore {
   };
 
   private updateDataFromLS = () => {
-    const storedPeople = localStorage.getItem("people");
-    const storedTotalCount = localStorage.getItem("totalCount");
-    const storedNextPage = localStorage.getItem("nextPage");
+    const people = getDataFromLS<IPeople[]>("people", []);
+    const nextPage = getDataFromLS<number>("nextPage", 1);
+    const totalCount = getDataFromLS<number>("totalCount");
 
-    if (storedPeople || storedTotalCount || storedNextPage) {
-      try {
-        this.people = storedPeople ? JSON.parse(storedPeople) : [];
-        this.totalCount = storedTotalCount ? JSON.parse(storedTotalCount) : 0;
-        this.nextPage = storedNextPage ? JSON.parse(storedNextPage) : 1;
-      } catch (error) {
-        console.error("Error parsing people data from localStorage:", error);
-      }
-    }
+    if (people) this.people = people;
+    if (nextPage) this.nextPage = nextPage;
+    if (totalCount) this.totalCount = totalCount;
   };
 }
 
