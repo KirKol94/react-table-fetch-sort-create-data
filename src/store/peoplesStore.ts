@@ -81,7 +81,7 @@ class PeoplesStore {
         saveDataToLS(data.count, "totalCount");
 
         // делим строку https://data.com/?page=1 по знаку =
-        this.nextPage = data.next !== null ? +data.next.split("=")[1] : null;
+        this.nextPage = data.next === null ? null : +data.next.split("=")[1];
         saveDataToLS(this.nextPage, "nextPage");
       });
     } catch (error) {
@@ -103,9 +103,9 @@ class PeoplesStore {
     const nextPage = getDataFromLS<number>("nextPage", 1);
     const totalCount = getDataFromLS<number>("totalCount");
 
-    if (people) this.people = people;
-    if (nextPage) this.nextPage = nextPage;
-    if (totalCount) this.totalCount = totalCount;
+    if (people !== undefined) this.people = people;
+    if (nextPage !== undefined) this.nextPage = nextPage;
+    if (totalCount !== undefined) this.totalCount = totalCount;
   };
 }
 
