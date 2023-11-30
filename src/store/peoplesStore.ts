@@ -3,7 +3,23 @@ import { IPeople, IResponse } from "@/types/peopleData";
 import { getDataFromLS, saveDataToLS } from "@/utils/localStorage";
 import { makeAutoObservable, runInAction } from "mobx";
 
-class PeoplesStore {
+interface IpeopleStore {
+  getData: () => void;
+  loadMore: () => void;
+  setSearch: (value: string) => void;
+  addItem: (obj: IPeople) => void;
+  removeItem: (key: string) => void;
+  setsortedArrayToLS: (arr: IPeople[]) => void;
+  clearData: () => void;
+  isLoading: boolean;
+  people: IPeople[];
+  totalCount: number | null;
+  error: string | null;
+  nextPage: number | null;
+  search: string;
+}
+
+class PeoplesStore implements IpeopleStore {
   constructor() {
     makeAutoObservable(this);
     this.updateDataFromLS();
@@ -84,12 +100,10 @@ class PeoplesStore {
         this.nextPage = data.next === null ? null : +data.next.split("=")[1];
         saveDataToLS(this.nextPage, "nextPage");
       });
-    } catch (error) {
+    } catch (error: unknown) {
       runInAction(() => {
         this.error =
-          error instanceof Error
-            ? error.message
-            : "Что-то пошло не так при загрузке данных";
+          (error as Error).message || "Что-то пошло не так при загрузке данных";
       });
     } finally {
       runInAction(() => {
