@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import classes from "./header.module.scss";
 import clsx from "clsx";
 import { useHeader } from "./useHeader";
-import { HEADER_LINKS } from "@/consts/links";
+import { HEADER_LINKS } from "@/vars/links";
 
 export const Header = () => {
   const { pathname } = useHeader();

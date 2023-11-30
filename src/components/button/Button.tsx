@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import classes from "./Button.module.scss";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import { PATH } from "@/consts/paths";
+import { PATH } from "@/vars/paths";
 
 type VariantButton = "danger" | "primary" | "secondaty";
 

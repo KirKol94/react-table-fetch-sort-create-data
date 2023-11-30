@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Loader } from "../loader";
-import { PATH } from "@/consts/paths";
+import { PATH } from "@/vars/paths";
 
 const HomePage = lazy(() => import("@/pages/home/HomePage"));
 const CreatePage = lazy(() => import("@/pages/create/Create"));

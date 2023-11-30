@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/peopleData";
 import { useState, ChangeEvent, FormEvent } from "react";
-import { PATH } from "@/consts/paths";
+import { PATH } from "@/vars/paths";
 
 interface IInputData {
   key: keyof IPeople;

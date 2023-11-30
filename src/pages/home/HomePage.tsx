@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import classes from "./HomePage.module.scss";
 import { useHome } from "./useHome";
 import { Input } from "@/components/input";
-import { PATH } from "@/consts/paths";
+import { PATH } from "@/vars/paths";
 
 const HomePage = observer(() => {
   const {

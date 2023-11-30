@@ -1,4 +1,4 @@
-import { BASE_API_URL } from "@/consts/baseApiUrl";
+import { BASE_API_URL } from "@/vars/baseApiUrl";
 import { IResponse } from "@/types/peopleData";
 import ky from "ky";
 

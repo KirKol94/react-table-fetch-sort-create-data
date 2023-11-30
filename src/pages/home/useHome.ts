@@ -1,4 +1,4 @@
-import { PATH } from "@/consts/paths";
+import { PATH } from "@/vars/paths";
 import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/peopleData";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
