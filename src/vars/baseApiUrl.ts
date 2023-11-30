@@ -1,1 +1,1 @@
-export const BASE_API_URL = "https://swapi.dev/api/people/";
+export const BASE_API_URL: Readonly<string> = "https://swapi.dev/api/people/";
