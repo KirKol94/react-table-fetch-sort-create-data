@@ -3,6 +3,7 @@ import peoplesStore from "@/store/peoplesStore";
 import { IPeople } from "@/types/peopleData";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { PATH } from "@/vars/paths";
+import { FormPeopleType } from "@/types/formPeople";
 
 interface IInputData {
   key: keyof IPeople;
@@ -11,7 +12,7 @@ interface IInputData {
 }
 
 interface ICreateDate {
-  formData: IPeople;
+  formData: FormPeopleType;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: FormEvent) => void;
   isFormCompleted: boolean;
@@ -23,23 +24,12 @@ export const useCreate = (): ICreateDate => {
 
   const { addItem } = peoplesStore;
 
-  const [formData, setFormData] = useState<IPeople>({
+  const [formData, setFormData] = useState<FormPeopleType>({
     name: "",
     eye_color: "",
     gender: "",
     birth_year: "",
     created: new Date().toString(),
-    height: "1234",
-    mass: "1234",
-    hair_color: "",
-    skin_color: "1234",
-    homeworld: "1234",
-    films: ["1234"],
-    species: ["1234"],
-    vehicles: ["1234"],
-    starships: ["1234"],
-    edited: "1234",
-    url: "i1234",
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,4 +1,5 @@
 import { api } from "@/api/api";
+import { FormPeopleType } from "@/types/formPeople";
 import { IPeople, IResponse } from "@/types/peopleData";
 import { getDataFromLS, saveDataToLS } from "@/utils/localStorage";
 import { makeAutoObservable, runInAction } from "mobx";
@@ -46,7 +47,7 @@ class PeoplesStore implements IpeopleStore {
     this.search = value;
   };
 
-  addItem = (obj: IPeople) => {
+  addItem = (obj: FormPeopleType) => {
     this.people = [...this.people, obj];
 
     if (this.people.length === 1) {
