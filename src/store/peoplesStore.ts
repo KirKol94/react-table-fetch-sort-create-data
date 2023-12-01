@@ -2,6 +2,7 @@ import { api } from "@/api/api";
 import { FormPeopleType } from "@/types/formPeople";
 import { IPeople, IResponse } from "@/types/peopleData";
 import { getDataFromLS, saveDataToLS } from "@/utils/localStorage";
+import { BASE_API_URL } from "@/vars/baseApiUrl";
 import { makeAutoObservable, runInAction } from "mobx";
 
 interface IpeopleStore {
@@ -76,14 +77,14 @@ class PeoplesStore implements IpeopleStore {
   };
 
   private handleDataLoading = async (
-    apiCall: (page?: number | null | undefined) => Promise<IResponse>,
+    apiCall: (url: string) => Promise<IResponse>,
     nextPage?: number | null
   ) => {
     this.isLoading = true;
     this.error = null;
 
     try {
-      const data = await apiCall(nextPage);
+      const data = await apiCall(BASE_API_URL + `?page=${nextPage || 1}`);
 
       runInAction(() => {
         if (nextPage !== null) {
