@@ -1,6 +1,6 @@
-[Результат находится по этой ссылке](https://react-table-sort.netlify.app/)
+# React data table [Ссылка](https://react-table-sort.netlify.app/)
 
-# READNE
+![Скриншот](./screen.png)
 
 ## Запусе проекта
 Для запуска проекта необходимо установить зависимости командой `npm install` или `yarn install`, после установки можно запустить сервер для разработки командой `npm run dev` или `yarn dev`
